@@ -8,13 +8,13 @@
     cd client
     npm i
   
-&nbsp;
+
 ### Install backend (server) dependencies.
 <p>Back in main project directory:</p>
     
     cd ..
     npm i
 
-&nbsp;
+
 ### Run app in dev
     npm run dev
