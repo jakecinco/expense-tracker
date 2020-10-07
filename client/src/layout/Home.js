@@ -4,22 +4,25 @@ import { Balance } from '../components/Balance';
 import { IncomeExpenses } from '../components/IncomeExpenses';
 import { TransactionList } from '../components/TransactionList';
 import { AddTransaction } from '../components/AddTransaction';
+import Container from '@material-ui/core/Container';
 
 import app from '../utils/firebase';
 
 export const Home = () => {
-    const env = process.env;
-    console.log(env)
     return (
         <>
+            <Container maxWidth="sm">
             <Header />
             <div className="container">
                 <Balance />
                 <IncomeExpenses />
                 <TransactionList />
                 <AddTransaction />
-                <button onClick={() => app.auth().signOut()}>Sign out</button>
             </div>
+            <br />
+                <button onClick={() => app.auth().signOut()}>Sign out</button>
+           
+            </Container>
         </>
     )
 }

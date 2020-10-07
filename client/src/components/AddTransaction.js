@@ -1,17 +1,30 @@
 import React, { useState, useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(0),
+            // width: '25ch',
+        },
+    },
+}));
 
 export const AddTransaction = () => {
+    const classes = useStyles();
     const [text, setText] = useState('');
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState('');
 
     const { addTransaction } = useContext(GlobalContext);
 
     const onSubmit = e => {
         e.preventDefault();
-
         const newTransaction = {
-            //id: Math.floor(Math.random() * 100000000),
             text,
             amount: +amount
         }
@@ -22,20 +35,40 @@ export const AddTransaction = () => {
     return (
         <>
             <h3>Add new transaction</h3>
-            <form onSubmit={onSubmit}>
-                <div className="form-control">
-                    <label htmlFor="text">Text</label>
-                    <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter text..." />
-                </div>
-                <div className="form-control">
-                    <label htmlFor="amount"
-                    >Amount <br />
-            (negative - expense, positive - income)</label
-                    >
-                    <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount..." />
-                </div>
-                <button className="btn">Add transaction</button>
+            <form className={classes.root} onSubmit={onSubmit}>
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <TextField
+                            id="outlined-textarea"
+                            label="Text"
+                            type="text"
+                            placeholder="Enter description"
+                            variant="outlined"
+                            fullWidth
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                        />
+                    </Grid>
+                    <br />
+                    <Grid item xs={12}>
+                        <TextField
+                            id="outlined-textarea"
+                            label="Amount"
+                            type="number"
+                            placeholder="negative - expense, positive - income"
+                            variant="outlined"
+                            fullWidth
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button type="submit" variant="contained" fullWidth color="primary">
+                            Add transaction
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
         </>
-    )
+    );
 }

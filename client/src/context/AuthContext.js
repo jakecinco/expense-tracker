@@ -8,18 +8,18 @@ export const AuthContext = createContext();
 // Provider component
 export const AuthProvider = ({ children }) => {
     const [currentUser, serCurrentUser] = useState(null);
-    const [pending, setPending] = useState(true);
+    //const [pending, setPending] = useState(true);
 
     useEffect(() => {
         app.auth().onAuthStateChanged((user) => {
-            serCurrentUser(user);
-            setPending(false);
+            user ? serCurrentUser(user): serCurrentUser("");
+            //setPending(false);
         });
     }, []);
 
-    if (pending) {
-        return <>Loading...</>
-    }
+    // if (pending) {
+    //     return <>Loading...</>
+    // }
 
     return (
         <AuthContext.Provider value={{
